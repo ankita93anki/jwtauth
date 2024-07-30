@@ -3,3 +3,19 @@ php artisan install:api
 
 command #2(install JWT)
 composer require php-open-source-saver/jwt-auth
+
+Command #3 (Publish JWT Config File)
+php artisan vendor:publish --provider="PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider"
+
+command #4
+php artisan jwt:secret
+jwt-auth secret [mZt7Dwq3Qqvki0xitoXaoEcwgGSjj9BsLzsXvcvJ10h2GnhGJnbEsiiBUk7lXhJC] set successfully.
+
+config/auth.php
+modify this lines in defaults 'guard' => env('AUTH_GUARD', 'api'),
+
+add this line
+'api' => [
+'driver' => 'session',
+'provider' => 'users',
+],
