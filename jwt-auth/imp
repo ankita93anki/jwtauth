@@ -1,0 +1,5 @@
+commmand #1(api.php)
+php artisan install:api
+
+command #2(install JWT)
+composer require php-open-source-saver/jwt-auth
