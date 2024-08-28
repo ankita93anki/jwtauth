@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ApiController extends Controller
 {
@@ -33,7 +34,30 @@ class ApiController extends Controller
     //Login API - POST (email, password)
     public function login(Request $request)
     {
+        //validation
 
+            $request->validate([
+                "email" => "required|string|email|required",
+                'password' => 'required'
+                ]);
+
+               //Auth Facade
+               $token = Auth::attempt([
+                "email" => $request->email,
+                "password" => $request->password
+               ]);
+
+            if(!$token){
+                return response()->json([
+                    'status' => false,
+                    'message' => "Invalid login credentials"
+                ]);
+            }
+            return response()->json([
+                "status" => true,
+                "message" => "User Logged In",
+                "token" => $token
+            ]);
     }
 
     //Profile API - GET JWT Auth Token)
